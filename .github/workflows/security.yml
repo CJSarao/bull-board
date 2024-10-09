@@ -28,7 +28,7 @@ jobs:
           SRCCLR_API_TOKEN: ${{ secrets.AS__VERACODE_AGENT_TOKEN }}
           GITHUB_USER: ${{ vars.AS__GITHUB_USER }}
           GITHUB_TOKEN: ${{ secrets.AS__GITHUB_TOKEN }}
-        uses: veracode/veracode-sca@v2.1.9
+        uses: veracode/veracode-sca@v2.1.12
         with:
           github_token: $${{ secrets.AS__GITHUB_TOKEN }}
           create-issues: false
@@ -38,7 +38,7 @@ jobs:
         run: zip -r src.zip . -x ".git/*" ".github/*" ".env*"
 
       - name: Veracode Upload and Scan
-        uses: veracode/veracode-uploadandscan-action@0.2.6
+        uses: veracode/veracode-uploadandscan-action@0.2.7
         with:
           appname: '${{ github.repository }}'
           version: '${{ github.head_ref || github.ref_name }} - ${{ github.sha }}'
@@ -46,5 +46,3 @@ jobs:
           vid: '${{ secrets.AS__VERACODE_API_ID }}'
           vkey: '${{ secrets.AS__VERACODE_API_KEY }}'
           scanallnonfataltoplevelmodules: true
-          allow-dirty: true
-
